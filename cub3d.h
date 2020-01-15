@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 17:49:00 by adorigo           #+#    #+#             */
-/*   Updated: 2020/01/14 11:56:16 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/01/15 15:30:58 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,10 @@ typedef struct		s_ray
 	t_pos			*dir;
 	double			dist_x;
 	double			dist_y;
-	t_pos			delta_dist;
+	t_pos			*delta_dist;
 	double			perp_wall_dist;
-	int				wall_h;
+	int				wall_hit;
+	int				wall_height;
 	int				wall_type;
 	int				side;
 	int				draw_start;

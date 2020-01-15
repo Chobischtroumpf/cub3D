@@ -82,20 +82,20 @@ int verLine(void *mlx_ptr, void *win_ptr, int x, int drawStart, int drawEnd, int
 
 int main(void)
 {
-  double posX = 22, posY = 12;  //x and y start position
-  double dirX = 2, dirY = 0; //initial direction vector
-  double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane
+	double posX = 22, posY = 12;  //x and y start position
+	double dirX = 2, dirY = 0; //initial direction vector
+	double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane
 
-  double time = 0; //time of current frame
-  double oldTime = 0; //time of previous frame
-  void	*mlx_ptr;
-  void	*win_ptr;
+	double time = 0; //time of current frame
+	double oldTime = 0; //time of previous frame
+	void	*mlx_ptr;
+	void	*win_ptr;
 
-  mlx_ptr = mlx_init();
+	mlx_ptr = mlx_init();
 
-  win_ptr =mlx_new_window(mlx_ptr, screenWidth, screenHeight, "Raycaster");
-  while(1)
-  {
+	win_ptr =mlx_new_window(mlx_ptr, screenWidth, screenHeight, "Raycaster");
+	while(1)
+	{
 		for(int x = 0; x < screenWidth; x++)
 		{
 		//calculate ray position and direction
@@ -188,10 +188,10 @@ int main(void)
 		}
 
       //give x and y sides different brightness
-      if(side == 1) {color = color / 2;}
-      printf("%d\n", color);
+    if(side == 1) {color = color / 2;}
+    printf("%d\n", color);
       //draw the pixels of the stripe as a vertical line
-      verLine(mlx_ptr, win_ptr, x, drawStart, drawEnd, color);
+    verLine(mlx_ptr, win_ptr, x, drawStart, drawEnd, color);
     }
 	mlx_loop(mlx_ptr);
     //timing for input and FPS counter

@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 14:34:34 by adorigo           #+#    #+#             */
-/*   Updated: 2020/01/14 13:14:57 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/01/15 16:45:57 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_cub3d	*ft_set_pos(t_cub3d *cub3d, int **world_map)
 		}
 		i++;
 	}
-					cub3d->player->dir->y = 0;
+	cub3d->player->dir->y = 0;
 	return (cub3d);
 }
 
@@ -107,7 +107,7 @@ int		raycasting(t_cub3d *cub3d)
 		{
 			player->step->x = -1;
 			cub3d->ray->dist_x = (player->pos->x - map_x)
-												* cub3d->ray->delta_dist->x;
+			* cub3d->ray->delta_dist->x;
 		}
 		else
 		{
@@ -127,26 +127,38 @@ int		raycasting(t_cub3d *cub3d)
 			cub3d->ray->dist_y = (map_y + 1.0 - player->pos->y)
 												* cub3d->ray->delta_dist->y;
 		}
-		if(cub3d->ray->dist_x < cub3d->ray->dist_y)
+		if (cub3d->ray->dist_x < cub3d->ray->dist_y)
 		{
 			cub3d->ray->dist_x += cub3d->ray->delta_dist->x;
 			map_x += player->step->x;
-			side = 0;
+			cub3d->ray->side = 0;
 		}
 		else
 		{
 			cub3d->ray->dist_y += cub3d->ray->delta_dist->y;
-			mapY += player->step->y;
-			side = 1;
+			map_y += player->step->y;
+			cub3d->ray->side = 1;
 		}
-		if(worldMap[map_x][map_y] > 0) hit = 1;
-		if(side == 0)
+		if (world_map[map_x][map_y] > 0)
+			cub3d->ray->wall_hit = 1;
+		if (cub3d->ray->side == 0)
 			cub3d->ray->perp_wall_dist = (map_x - player->pos->x +
 							(1 - player->step->x) / 2) / cub3d->ray->dir->x;
 		else
 			cub3d->ray->perp_wall_dist = (map_y - player->pos->y +
-										(1 - stepY) / 2) / rayDirY;
+										(1 - cub3d->player->step->y) / 2)
+										/ cub3d->ray->dir->y;
+		cub3d->ray->wall_height = (int)(cub3d->conf->res_h
+											/ cub3d->ray->perp_wall_dist);
+		cub3d->ray->draw_start = -cub3d->ray->wall_height / 2
+												+ cub3d->conf->res_h / 2;
+		if (cub3d->ray->draw_start < 0)
+			cub3d->ray->draw_start = 0;
+		cub3d->ray->draw_end = -cub3d->ray->wall_height / 2
+												+ cub3d->conf->res_h / 2;
 
+		if (cub3d->ray->draw_end >= cub3d->conf->res_h)
+			cub3d->ray->draw_end = cub3d->conf->res_h;
 
 		if(world_map[(int)player->pos->x][(int)player->pos->y] == 1)
 			color = 0xFF0000;
