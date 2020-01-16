@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 14:34:34 by adorigo           #+#    #+#             */
-/*   Updated: 2020/01/15 16:45:57 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/01/16 07:32:11 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_cub3d	*ft_set_pos(t_cub3d *cub3d, int **world_map)
 
 int		raycasting(t_cub3d *cub3d)
 {
-	t_player	*player;
+	t_player	*p;
 	// double		cam_x;
 	double 		x;
 	int			color;
@@ -85,68 +85,68 @@ int		raycasting(t_cub3d *cub3d)
 
 	x = 0;
 	cub3d = ft_set_pos(cub3d, world_map);
-	player = cub3d->player;
-	player->plane->x = 0;
-	player->plane->y = 0.66;
+	p = cub3d->player;
+	p->plane->x = 0;
+	p->plane->y = 0.66;
 	cub3d->mlx = mlx_init();
 	cub3d->win = mlx_new_window(cub3d->mlx, cub3d->conf->res_w,
 								cub3d->conf->res_h, "Cub3D");
 	while( x < cub3d->conf->res_w)
 	{
-		player->cam->x = 2 * x / (double)cub3d->conf->res_w - 1;
-		cub3d->ray->dir->x = player->dir->x +
-											player->plane->x * player->cam->x;
-		cub3d->ray->dir->y = player->dir->y +
-											player->plane->y * player->cam->y;
-		map_x = (int)player->pos->x;
-		map_y = (int)player->pos->y;
+		p->cam->x = 2 * x / (double)cub3d->conf->res_w - 1;
+		cub3d->ray->dir->x = p->dir->x +
+											p->plane->x * p->cam->x;
+		cub3d->ray->dir->y = p->dir->y +
+											p->plane->y * p->cam->y;
+		map_x = (int)p->pos->x;
+		map_y = (int)p->pos->y;
 
 		cub3d->ray->delta_dist->x = fabs(1/ cub3d->ray->dir->x);
 		cub3d->ray->delta_dist->y = fabs(1/ cub3d->ray->dir->y);
 		if (cub3d->ray->dir->x < 0)
 		{
-			player->step->x = -1;
-			cub3d->ray->dist_x = (player->pos->x - map_x)
+			p->step->x = -1;
+			cub3d->ray->dist_x = (p->pos->x - map_x)
 			* cub3d->ray->delta_dist->x;
 		}
 		else
 		{
-			player->step->x = 1;
-			cub3d->ray->dist_x = (map_x + 1.0 - player->pos->x)
+			p->step->x = 1;
+			cub3d->ray->dist_x = (map_x + 1.0 - p->pos->x)
 												* cub3d->ray->delta_dist->x;
 		}
 		if (cub3d->ray->dir->y < 0)
 		{
-			player->step->y = -1;
-			cub3d->ray->dist_y = (player->pos->y - map_y)
+			p->step->y = -1;
+			cub3d->ray->dist_y = (p->pos->y - map_y)
 												* cub3d->ray->delta_dist->y;
 		}
 		else
 		{
-			player->step->y = 1;
-			cub3d->ray->dist_y = (map_y + 1.0 - player->pos->y)
+			p->step->y = 1;
+			cub3d->ray->dist_y = (map_y + 1.0 - p->pos->y)
 												* cub3d->ray->delta_dist->y;
 		}
 		if (cub3d->ray->dist_x < cub3d->ray->dist_y)
 		{
 			cub3d->ray->dist_x += cub3d->ray->delta_dist->x;
-			map_x += player->step->x;
+			map_x += p->step->x;
 			cub3d->ray->side = 0;
 		}
 		else
 		{
 			cub3d->ray->dist_y += cub3d->ray->delta_dist->y;
-			map_y += player->step->y;
+			map_y += p->step->y;
 			cub3d->ray->side = 1;
 		}
 		if (world_map[map_x][map_y] > 0)
 			cub3d->ray->wall_hit = 1;
 		if (cub3d->ray->side == 0)
-			cub3d->ray->perp_wall_dist = (map_x - player->pos->x +
-							(1 - player->step->x) / 2) / cub3d->ray->dir->x;
+			cub3d->ray->perp_wall_dist = (map_x - p->pos->x +
+							(1 - p->step->x) / 2) / cub3d->ray->dir->x;
 		else
-			cub3d->ray->perp_wall_dist = (map_y - player->pos->y +
-										(1 - cub3d->player->step->y) / 2)
+			cub3d->ray->perp_wall_dist = (map_y - p->pos->y +
+										(1 - cub3d->p->step->y) / 2)
 										/ cub3d->ray->dir->y;
 		cub3d->ray->wall_height = (int)(cub3d->conf->res_h
 											/ cub3d->ray->perp_wall_dist);
@@ -160,13 +160,13 @@ int		raycasting(t_cub3d *cub3d)
 		if (cub3d->ray->draw_end >= cub3d->conf->res_h)
 			cub3d->ray->draw_end = cub3d->conf->res_h;
 
-		if(world_map[(int)player->pos->x][(int)player->pos->y] == 1)
+		if(world_map[(int)p->pos->x][(int)p->pos->y] == 1)
 			color = 0xFF0000;
-		else if (world_map[(int)player->pos->x][(int)player->pos->y] == 2)
+		else if (world_map[(int)p->pos->x][(int)p->pos->y] == 2)
 			color = 0x008000;
-		else if (world_map[(int)player->pos->x][(int)player->pos->y] == 3)
+		else if (world_map[(int)p->pos->x][(int)p->pos->y] == 3)
 			color = 0x0000FF;
-		else if (world_map[(int)player->pos->x][(int)player->pos->y] == 4)
+		else if (world_map[(int)p->pos->x][(int)p->pos->y] == 4)
 			color = 0xFFFFFF;
 		else
 			color = 0xFFFF00;

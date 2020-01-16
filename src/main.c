@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 17:49:58 by adorigo           #+#    #+#             */
-/*   Updated: 2020/01/13 09:53:17 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/01/16 08:01:36 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ int	main(int ac, char **av)
 
 	if(ac == 2)
 	{
-		if (!(cub_init(&cub3d)))
+		if (!(cub_init(&cub3d)) || set_screen(&cub3d))
 			return(EXIT_FAILURE);
+		run_mlx(&cub3d);
 	}
 	else if (ac == 3 && !ft_strcmp(av[2], "-save"))
 	{

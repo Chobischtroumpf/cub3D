@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 12:13:01 by adorigo           #+#    #+#             */
-/*   Updated: 2020/01/13 09:48:08 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/01/16 07:24:04 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void init_player(t_player *p)
 {
-	p->pos->pos_x = 0.0;
-	p->pos->pos_y = 0.0;
-	P->mov_speed = 0.15;
+	p->pos->x = 0.0;
+	p->pos->y = 0.0;
+	p->mov_speed = 0.15;
 	p->rot_speed = 1;
 	p->rot_dir = 0;
 	p->mov_dir = 0;
@@ -29,9 +29,9 @@ static void	init_conf(t_config *conf, t_tex *tex)
 	i = -1;
 	while(++i < 5)
 	{
-		tex->path[i];
-		tex->img[i];
-		tex->data[i];
+		tex->path[i] = 0;
+		tex->img[i] = 0;
+		tex->data[i] = 0;
 	}
 	conf->grid_w = 0;
 	conf->grid_h = 0;

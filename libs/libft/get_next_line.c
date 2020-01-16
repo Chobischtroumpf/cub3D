@@ -3,46 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 14:54:16 by adorigo           #+#    #+#             */
-/*   Updated: 2019/11/22 07:34:20 by adorigo          ###   ########.fr       */
+/*   Updated: 2019/12/05 14:15:29 by alessandro       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
-static char		*ft_strnew(void)
+static char		*ft_strnotnew(void)
 {
 	char *ret;
 
 	if (!(ret = (char *)malloc(sizeof(char))))
 		return (0);
 	ret[0] = '\0';
-	return (ret);
-}
-
-static ssize_t	pos_nl(char *s)
-{
-	ssize_t	i;
-
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == '\n')
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-static int		free_cache(char **cache, int ret)
-{
-	if (*cache)
-	{
-		free(*cache);
-		*cache = 0;
-	}
 	return (ret);
 }
 
@@ -78,22 +54,22 @@ int				get_next_line(int fd, char **line)
 	static char	*cache;
 	char		*tmp;
 
-	if (fd < 0 || !line || fd > OPEN_MAX || BUFFER_SIZE <= 0)
+	if (fd < 0 || !line || BUFFER_SIZE <= 0)
 		return (free_cache(&cache, -1));
 	while ((r_size = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
 		buff[r_size] = '\0';
-		if (!(tmp = ft_strjoin(cache, buff, r_size)))
+		if (!(tmp = ft_strnjoin(cache, buff, r_size)))
 			return (free_cache(&cache, -1));
 		free_cache(&cache, 0);
 		cache = tmp;
-		if (pos_nl(cache) != -1)
+		if (ft_strnbr(cache) != -1)
 			break ;
 	}
 	if (r_size < 0)
 		return (free_cache(&cache, -1));
 	if (r_size == 0 && (!cache || *cache == '\0')
-		&& (*line = ft_strnew()))
+		&& (*line = ft_strnotnew()))
 		return (free_cache(&cache, 0));
-	return (extract(line, &cache, pos_nl(cache)));
+	return (extract(line, &cache, ft_strnbr(cache)));
 }
