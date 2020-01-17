@@ -93,11 +93,15 @@ int main(void)
 		{
 		//calculate ray position and direction
 			double cameraX = 2 * (double)x / (double)screenWidth - 1; //x-coordinate in camera space
+			printf("valeur de x : %d\nposition camera x : %f\n",x,cameraX);
+
 			double rayDirX = dirX + planeX * cameraX;
 			double rayDirY = dirY + planeY * cameraX;
 		//which box of the map we're in
 			int mapX = (int)posX;
 			int mapY = (int)posY;
+
+		printf("direction plan x : %f\n direction plan y : %f\ndirection rayon x : %f\n direction rayon y : %f\n position x : %f\n position y : %f\n",planeX, planeY,dirX, dirY, posX, posY);
 
 			//length of ray from current position to next x or y-side
 			double sideDistX;
@@ -107,6 +111,7 @@ int main(void)
 			double deltaDistX = fabs(1 / rayDirX);
 			double deltaDistY = fabs(1 / rayDirY);
 			double perpWallDist;
+		printf("distance delta du rayon x : %f\n distance delta du rayon y : %f\n", deltaDistX, deltaDistY);
 
 		//what direction to step in x or y-direction (either +1 or -1)
 			int stepX;
@@ -183,7 +188,7 @@ int main(void)
 
       //give x and y sides different brightness
     if(side == 1) {color = color / 2;}
-    printf("%d\n %d\n %x\n",drawStart, drawEnd ,color);
+    // printf("%d\n %d\n %x\n",drawStart, drawEnd ,color);
       //draw the pixels of the stripe as a vertical line
     verLine(mlx_ptr, win_ptr, x, drawStart, drawEnd, color);
     }

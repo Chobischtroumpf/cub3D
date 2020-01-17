@@ -6,9 +6,15 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 14:34:34 by adorigo           #+#    #+#             */
-/*   Updated: 2020/01/17 16:23:02 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/01/17 17:59:19 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+// 
+//	 C'EST UN PROBLEME DE CAST
+// 	 FAUT DECLARER LE X EN DOUBLE ET CHECK LES AUTRES CASTS
+//
 
 #include "../cub3d.h"
 
@@ -96,58 +102,59 @@ int		raycasting(t_cub3d *cub3d)
 	color = 0x0;
 	// while(x++ < cub3d->conf->res_w)
 	// 	verLine(cub3d->mlx, cub3d->win, x, 0, 1920, color);
-	// while (x < cub3d->conf->res_w)
+	while (x < cub3d->conf->res_w)
 	{
 		p->cam->x = (double)(2 * x / cub3d->conf->res_w - 1);
+		printf("valeur de x : %f\nposition camera x : %f\n",x ,p->cam->x);
 		cub3d->ray->dir->x = p->dir->x + p->plane->x * p->cam->x;
 		cub3d->ray->dir->y = p->dir->y + p->plane->y * p->cam->x;
 		map_x = (int)p->pos->x;
 		map_y = (int)p->pos->y;
-		printf("direction rayon x : %f, direction rayon y : %f position x : %f , position y : %f",cub3d->ray->dir->x, cub3d->ray->dir->y, p->pos->x, p->pos->y);
+		printf("direction plan x : %f\n direction plan y : %f\ndirection rayon x : %f\n direction rayon y : %f\n position x : %f\n position y : %f\n",p->plane->x ,p->plane->y ,cub3d->ray->dir->x, cub3d->ray->dir->y, p->pos->x, p->pos->y);
 		cub3d->ray->delta_dist->x = fabs(1 / cub3d->ray->dir->x);
 		cub3d->ray->delta_dist->y = fabs(1 / cub3d->ray->dir->y);
-		printf("distance delta du rayon x : %f, distance delta du rayon y : %f ", cub3d->ray->delta_dist->x, cub3d->ray->delta_dist->y);
+		printf("distance delta du rayon x : %f\n distance delta du rayon y : %f\n", cub3d->ray->delta_dist->x, cub3d->ray->delta_dist->y);
 		if (cub3d->ray->dir->x < 0)
 		{
 			p->step->x = -1;
 			cub3d->ray->dist_x = (p->pos->x - map_x) *
 												cub3d->ray->delta_dist->x;
-			printf(" distance rayon x : %f,", cub3d->ray->dist_x);
+			printf(" distance rayon x : %f\n", cub3d->ray->dist_x);
 		}
 		else
 		{
 			p->step->x = 1;
 			cub3d->ray->dist_x = (map_x + 1.0 - p->pos->x)
 												* cub3d->ray->delta_dist->x;
-			printf(" distance rayon x : %f,", cub3d->ray->dist_x);
+			printf(" distance rayon x : %f\n", cub3d->ray->dist_x);
 		}
 		if (cub3d->ray->dir->y < 0)
 		{
 			p->step->y = -1;
 			cub3d->ray->dist_y = (p->pos->y - map_y)
 												* cub3d->ray->delta_dist->y;
-			printf(" distance rayon y : %f,", cub3d->ray->dist_y);
+			printf(" distance rayon y : %f\n", cub3d->ray->dist_y);
 		}
 		else
 		{
 			p->step->y = 1;
 			cub3d->ray->dist_y = (map_y + 1.0 - p->pos->y)
 												* cub3d->ray->delta_dist->y;
-			printf(" distance rayon y : %f,", cub3d->ray->dist_y);
+			printf(" distance rayon y : %f\n", cub3d->ray->dist_y);
 		}
 		if (cub3d->ray->dist_x < cub3d->ray->dist_y)
 		{
 			cub3d->ray->dist_x += cub3d->ray->delta_dist->x;
 			map_x += p->step->x;
 			cub3d->ray->side = 0;
-			printf(" distance rayon x if smaller than y : %f,", cub3d->ray->dist_x);
+			printf(" distance rayon x if smaller than y : %f\n", cub3d->ray->dist_x);
 		}
 		else
 		{
 			cub3d->ray->dist_y += cub3d->ray->delta_dist->y;
 			map_y += p->step->y;
 			cub3d->ray->side = 1;
-			printf(" distance rayon y if x is bigger than y : %f,", cub3d->ray->dist_y);
+			printf(" distance rayon y if x is bigger than y : %f\n", cub3d->ray->dist_y);
 		}
 		if (world_map[map_x][map_y] > 0)
 			cub3d->ray->w_hit = 1;
@@ -155,13 +162,13 @@ int		raycasting(t_cub3d *cub3d)
 		{
 			cub3d->ray->perp_wdist = fabs((map_x - p->pos->x +
 							(1 - p->step->x) / 2) / cub3d->ray->dir->x); //added fabs might need removal
-			printf(" distance mur perpendiculaire : %f,", cub3d->ray->perp_wdist);
+			printf(" distance mur perpendiculaire : %f\n", cub3d->ray->perp_wdist);
 		}
 		else
 		{
 			cub3d->ray->perp_wdist = fabs((map_y - p->pos->y + (1 - p->step->y) / 2)
 														/ cub3d->ray->dir->y); // added fabs might need removal later
-			// printf(" distance mur perpendiculaire else : %f");
+			// printf(" distance mur perpendiculaire else : %f\n");
 		}
 		cub3d->ray->w_height = (cub3d->conf->res_h / cub3d->ray->perp_wdist);
 		// printf("%d", cub3d->ray->w_height);

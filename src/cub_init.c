@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 12:13:01 by adorigo           #+#    #+#             */
-/*   Updated: 2020/01/17 14:45:17 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/01/17 17:49:22 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ static void	init_conf(t_config *conf, t_tex *tex)
 	}
 	conf->grid_w = 0;
 	conf->grid_h = 0;
-	conf->res_w = 1920;
-	conf->res_h = 1080;
+	conf->res_w = 640;
+	conf->res_h = 480;
 	conf->color_c = 0;
 	conf->color_f = 0;
 }
