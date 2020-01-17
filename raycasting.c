@@ -26,7 +26,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // #include <vector>
 // #include <iostream>
 
-#include "minilibx_opengl/mlx.h"
+#include "libs/minilibx_opengl/mlx.h"
 #include <math.h>
 #include <time.h>
 
@@ -76,17 +76,17 @@ int verLine(void *mlx_ptr, void *win_ptr, int x, int drawStart, int drawEnd, int
 int main(void)
 {
 	double posX = 22, posY = 12;  //x and y start position
-	double dirX = 2, dirY = 0; //initial direction vector
+	double dirX = -1, dirY = 0; //initial direction vector
 	double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane
 
-	double time = 0; //time of current frame
-	double oldTime = 0; //time of previous frame
+	// double time = 0; //time of current frame
+	// double oldTime = 0; //time of previous frame
 	void	*mlx_ptr;
 	void	*win_ptr;
 
 	mlx_ptr = mlx_init();
 
-	win_ptr =mlx_new_window(mlx_ptr, screenWidth, screenHeight, "Raycaster");
+	win_ptr = mlx_new_window(mlx_ptr, screenWidth, screenHeight, "Raycaster");
 	while(1)
 	{
 		for(int x = 0; x < screenWidth; x++)
@@ -164,6 +164,7 @@ int main(void)
     	int lineHeight = (int)(screenHeight / perpWallDist);
 
 		//calculate lowest and highest pixel to fill in current stripe
+
 		int drawStart = -lineHeight / 2 + screenHeight / 2;
 		if(drawStart < 0)drawStart = 0;
 		int drawEnd = lineHeight / 2 + screenHeight / 2;
@@ -182,7 +183,7 @@ int main(void)
 
       //give x and y sides different brightness
     if(side == 1) {color = color / 2;}
-    printf("%d\n", color);
+    printf("%d\n %d\n %x\n",drawStart, drawEnd ,color);
       //draw the pixels of the stripe as a vertical line
     verLine(mlx_ptr, win_ptr, x, drawStart, drawEnd, color);
     }

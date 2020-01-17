@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alessandro <alessandro@student.42.fr>      +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 15:10:59 by adorigo           #+#    #+#             */
-/*   Updated: 2019/12/05 17:30:00 by alessandro       ###   ########.fr       */
+/*   Updated: 2020/01/17 09:34:39 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int					ft_isspace(int c);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
 
-int					free_cache(char **cache, int ret);
+int					ft_free_cache(char **cache, int ret);
 void				*ft_calloc(size_t count, size_t size);
 char				*ft_strdup(const char *src);
 char				*ft_strndup(const char *src, size_t n);

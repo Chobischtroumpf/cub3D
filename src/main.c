@@ -6,11 +6,11 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 17:49:58 by adorigo           #+#    #+#             */
-/*   Updated: 2020/01/16 08:01:36 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/01/17 10:34:35 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 
 int	main(int ac, char **av)
@@ -20,7 +20,7 @@ int	main(int ac, char **av)
 
 	if(ac == 2)
 	{
-		if (!(cub_init(&cub3d)) || set_screen(&cub3d))
+		if (!(cub_init(&cub3d)) || !(set_screen(&cub3d)))
 			return(EXIT_FAILURE);
 		run_mlx(&cub3d);
 	}

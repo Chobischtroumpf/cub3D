@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 17:49:00 by adorigo           #+#    #+#             */
-/*   Updated: 2020/01/15 15:30:58 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/01/17 09:24:50 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <errno.h>
-# include "libft/libft.h"
-# include "miniLibx_opengl/mlx.h"
+# include "libs/libft/libft.h"
+# include "libs/minilibx_opengl/mlx.h"
+# include "includes/key.h"
 
 # define TEX_N 0
 # define TEX_S 1
@@ -80,10 +81,10 @@ typedef struct		s_ray
 	double			dist_x;
 	double			dist_y;
 	t_pos			*delta_dist;
-	double			perp_wall_dist;
-	int				wall_hit;
-	int				wall_height;
-	int				wall_type;
+	double			perp_wdist;
+	int				w_hit;
+	int				w_height;
+	int				w_type;
 	int				side;
 	int				draw_start;
 	int				draw_end;
@@ -105,7 +106,7 @@ typedef struct s_cub3d
 	t_config		*conf;
 	t_tex			*tex;
 	t_sprite		*sp;
-	char			**grid;
+	// char			**grid;
 	void			*mlx;
 	void			*win;
 	void			*img;
@@ -114,5 +115,13 @@ typedef struct s_cub3d
 	int				size_line;
 	int				endian;
 }					t_cub3d;
+
+int					raycasting(t_cub3d *cub3d);
+int					free_all(t_cub3d *cub3d, int ret);
+int					err_free(int erno, char *msg, t_cub3d *cub3d, int ret);
+int					msg_err(int erno, char *msg, int ret);
+int					cub_init(t_cub3d *cub);
+int					set_screen(t_cub3d *cub3d);
+int					run_mlx(t_cub3d *cub3d);
 
 #endif
