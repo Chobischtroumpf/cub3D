@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_cache.c                                    :+:      :+:    :+:   */
+/*   ft_strfree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 13:20:47 by adorigo           #+#    #+#             */
-/*   Updated: 2020/01/17 09:34:26 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/01/21 07:47:55 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_free_cache(char **cache, int ret)
+int		ft_strfree(char **cache, int ret)
 {
 	if (*cache)
 	{

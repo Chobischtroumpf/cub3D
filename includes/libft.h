@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 15:10:59 by adorigo           #+#    #+#             */
-/*   Updated: 2020/01/17 09:34:39 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/01/27 08:45:23 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,11 @@ int					ft_numlen(int n, int minus);
 char				**ft_split(char const *s, char c);
 char				*ft_strtrim(char const *s1, char const *set);
 char				*ft_strjoin(char const *s1, char const *s2);
-char				*ft_strnjoin(char *s1, char *s2, ssize_t r_size);
+char				*ft_strnjoin(char const *s1, char const *s2, 
+															ssize_t r_size);
 char				*ft_strnew(size_t size);
+int					ft_strlast(char const *str, char const *last);
+int					get_next_line(int fd, char **line);
 
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);
@@ -78,7 +81,7 @@ int					ft_isspace(int c);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
 
-int					ft_free_cache(char **cache, int ret);
+int					ft_strfree(char **cache, int ret);
 void				*ft_calloc(size_t count, size_t size);
 char				*ft_strdup(const char *src);
 char				*ft_strndup(const char *src, size_t n);

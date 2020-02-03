@@ -1,34 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnjoin.c                                      :+:      :+:    :+:   */
+/*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/22 11:59:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/01/21 07:29:29 by adorigo          ###   ########.fr       */
+/*   Created: 2020/01/23 08:18:28 by adorigo           #+#    #+#             */
+/*   Updated: 2020/01/27 12:04:19 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
-char	*ft_strnjoin(char const *s1, char const *s2, ssize_t r_size)
+int		calc_side_dist(t_pos *side, t_pos *delta, int map[], int step[])
 {
-	int		len;
-	char	*res;
-	ssize_t	i;
-
-	len = ft_strlen(s1) + r_size;
-	if (!(res = (char*)malloc(sizeof(char) * (len + 1))))
-		return (0);
-	i = 0;
-	while (s1 && s1[i] != '\0')
+	if (side->x < side->y)
 	{
-		res[i] = s1[i];
-		i++;
+		side->x += delta->x;
+		map[0] += step[0];
+		return (1);
 	}
-	while (s2 && *s2 != '\0')
-		res[i++] = *s2++;
-	res[i] = '\0';
-	return (res);
+	else
+	{
+		side->y += delta->y;
+		map[1] += step[1];
+		return (0);
+	}
+}
+
+double	deg2rad(double deg)
+{
+	return (deg / 180 * M_PI);
+}
+
+void	render(t_cub3d *cub3d)
+{
+	mlx_put_image_to_window(cub3d->mlx, cub3d->win, cub3d->img, 0, 0);
 }

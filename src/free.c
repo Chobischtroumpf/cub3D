@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/16 09:03:44 by adorigo           #+#    #+#             */
-/*   Updated: 2020/01/17 10:07:42 by adorigo          ###   ########.fr       */
+/*   Created: 2019/12/17 14:54:57 by adorigo           #+#    #+#             */
+/*   Updated: 2020/01/27 11:35:13 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "cub3d.h"
 
 static void	free_conf(t_cub3d *cub3d)
 {
@@ -25,7 +25,7 @@ static void	free_conf(t_cub3d *cub3d)
 			while (++i < 5)
 			{
 				if (cub3d->conf->tex->path[i])
-					ft_free_cache(&cub3d->conf->tex->path[i], 0);
+					ft_strfree(&cub3d->conf->tex->path[i], 0);
 				if (cub3d->conf->tex->img[i])
 					mlx_destroy_image(cub3d->mlx, cub3d->conf->tex->img[i]);
 			}
@@ -61,22 +61,22 @@ static void	free_player(t_cub3d *cub3d)
 	}
 }
 
-// static void	free_grid(t_cub3d *cub3d)
-// {
-// 	int i;
+static void	free_grid(t_cub3d *cub3d)
+{
+	int i;
 
-// 	if (cub3d->grid)
-// 	{
-// 		i = -1;
-// 		while (++i < cub3d->conf->grid_h)
-// 		{
-// 			free(cub3d->grid[i]);
-// 			cub3d->grid[i] = 0;
-// 		}
-// 		free(cub3d->grid);
-// 		cub3d->grid = 0;
-// 	}
-// }
+	if (cub3d->grid)
+	{
+		i = -1;
+		while (++i < cub3d->conf->grid_h)
+		{
+			free(cub3d->grid[i]);
+			cub3d->grid[i] = 0;
+		}
+		free(cub3d->grid);
+		cub3d->grid = 0;
+	}
+}
 
 static void	free_ray(t_cub3d *cub3d)
 {
@@ -87,11 +87,6 @@ static void	free_ray(t_cub3d *cub3d)
 			free(cub3d->ray->dir);
 			cub3d->ray->dir = 0;
 		}
-		if (cub3d->ray->delta_dist)
-		{
-			free(cub3d->ray->delta_dist);
-			cub3d->ray->delta_dist = 0;
-		}
 		free(cub3d->ray);
 		cub3d->ray = 0;
 	}
@@ -99,13 +94,15 @@ static void	free_ray(t_cub3d *cub3d)
 
 int			free_all(t_cub3d *cub3d, int ret)
 {
-	// free_grid(cub3d);
+	free_grid(cub3d);
 	free_player(cub3d);
 	free_ray(cub3d);
 	free_conf(cub3d);
-	// sp_clear(&cub3d->sp);
-	// if (cub3d->img)
-	// 	mlx_destroy_image(cub3d->mlx, cub3d->img);
+	if (cub3d->zbuff)
+		free(cub3d->zbuff);
+	sp_clear(&cub3d->sp);
+	if (cub3d->img)
+		mlx_destroy_image(cub3d->mlx, cub3d->img);
 	if (cub3d->mlx && cub3d->win)
 	{
 		mlx_destroy_window(cub3d->mlx, cub3d->win);
