@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 13:08:36 by adorigo           #+#    #+#             */
-/*   Updated: 2020/01/27 09:05:50 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/02/04 14:17:03 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	ck_extention(char *map_file, t_cub3d *cub3d)
 	if (!ft_strlast(map_file, ".cub"))
 	{
 		return (err_free(-1,
-			"Invalide map file. Please check file extention(.cub)\n",
+			"Invalid map file. Please check file extention (.cub)\n",
 			cub3d, 0));
 	}
 	return (1);
@@ -35,7 +35,7 @@ static int	ck_config(t_cub3d *cub3d)
 
 	conf = cub3d->conf;
 	if (conf->res_w <= 0 || conf->res_h <= 0)
-		return (err_free(-1, "Invlaide resolution number.\n", cub3d, 0));
+		return (err_free(-1, "Invalid resolution number.\n", cub3d, 0));
 	if (conf->res_w < RMIN_W || conf->res_h < RMIN_H)
 	{
 		conf->res_w = RMIN_W;
@@ -64,15 +64,14 @@ int			set_cub3d(char *map_file, t_cub3d *cub3d)
 	line = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (*line == '\0')
-			ft_strfree(&line, 0);
-		else if (!get_config(line, cub3d) && get_next_line(-1, 0))
+		if (!line)
+			return(0);
+		else if (!line_parsing(line, cub3d))
 		{
 			ft_strfree(&line, 0);
 			return (0);
 		}
-		else
-			ft_strfree(&line, 0);
+		ft_strfree(&line, 0);
 	}
 	ft_strfree(&line, 0);
 	close(fd);

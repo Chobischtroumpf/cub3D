@@ -1,16 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   config.c                                           :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 06:57:37 by adorigo           #+#    #+#             */
-/*   Updated: 2020/02/03 07:02:44 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/02/04 14:21:13 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+// static t_option_parser	g_pars_opt[] =
+// {
+// 	{"R", config_resolution ,1},
+// 	{"NO", config_texfile, 2},
+// 	{"SO", config_texfile, 2},
+// 	{"WE", config_texfile, 2},
+// 	{"EA", config_texfile, 2},
+// 	{"S", config_texfile, 1},
+	// {"F", ,1},
+	// {"C", ,1},
+	// {"1", ,0},
+	// {"0", ,0}
+// };
 
 static int	config_color(char *line, t_cub3d *cub3d, char op)
 {
@@ -19,24 +33,24 @@ static int	config_color(char *line, t_cub3d *cub3d, char op)
 	int			nb;
 
 	if (!check_color_form(line))
-		return (err_free(-1, "Inalide color format.\n", cub3d, 0));
+		return (err_free(-1, "Invalide color format.\n", cub3d, 0));
 	conf = cub3d->conf;
 	color = (op == 'F') ? &(conf->color_f) : &(conf->color_c);
 	nb = ft_atoi(line);
 	if (nb < 0 || nb > 255)
-		return (err_free(-1, "Inalide color format.\n", cub3d, 0));
+		return (err_free(-1, "Invalide color format.\n", cub3d, 0));
 	*color = nb << 16;
 	while (*line != ',')
 		line++;
 	nb = ft_atoi(++line);
 	if (nb < 0 || nb > 255)
-		return (err_free(-1, "Inalide color format.\n", cub3d, 0));
+		return (err_free(-1, "Invalide color format.\n", cub3d, 0));
 	*color = *color + (nb << 8);
 	while (*line != ',')
 		line++;
 	nb = ft_atoi(++line);
 	if (nb < 0 || nb > 255)
-		return (err_free(-1, "Inalide color format.\n", cub3d, 0));
+		return (err_free(-1, "Invalide color format.\n", cub3d, 0));
 	*color = *color + nb;
 	return (1);
 }
@@ -107,10 +121,16 @@ static int	config_grid(char *line, t_cub3d *cub3d, t_config *conf)
 	return (1);
 }
 
-int			get_config(char *line, t_cub3d *cub3d)
+int			line_parsing(char *line, t_cub3d *cub3d)
 {
+	// static int	map;
+	// char		*options;
+	// int			i;
+
+	// map = map;
 	while (*line == ' ')
 		line++;
+	printf("%s\n", line);
 	if (*line == 'F' || *line == 'C')
 		return (config_color(line + 1, cub3d, *line));
 	else if (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2)
@@ -125,7 +145,8 @@ int			get_config(char *line, t_cub3d *cub3d)
 	else if (!ft_isdigit(*line))
 	{
 		return (err_free(-1,
-			"Wrong map description : invalide character.\n", cub3d, 0));
+			"Wrong map description : invalid character.\n", cub3d, 0));
 	}
+
 	return (1);
 }

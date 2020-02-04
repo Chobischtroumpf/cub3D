@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 10:31:22 by adorigo           #+#    #+#             */
-/*   Updated: 2020/02/03 06:50:36 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/02/04 14:54:28 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static int	keypress_callback(int keycode, t_cub3d *cub3d)
 	if (keycode == KEY_DOWN || keycode == KEY_S)
 		p->mov_dir = 1;
 	if (keycode == KEY_RIGHT)
-		p->rot_dir = 1;
-	if (keycode == KEY_LEFT)
 		p->rot_dir = -1;
+	if (keycode == KEY_LEFT)
+		p->rot_dir = 1;
 	if (keycode == KEY_D)
 		p->mov_dir = -1;
 	if (keycode == KEY_A)
@@ -73,6 +73,7 @@ static int	main_loop(t_cub3d *cub3d)
 	{
 		raycasting(cub3d);
 		render(cub3d);
+
 		update = 0;
 	}
 	p = cub3d->player;

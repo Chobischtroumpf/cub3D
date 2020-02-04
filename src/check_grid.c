@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 09:08:07 by adorigo           #+#    #+#             */
-/*   Updated: 2020/01/27 16:21:23 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/02/04 07:46:51 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,23 @@ static void	set_player(char dir, int w, int h, t_cub3d *cub3d)
 	position_setter(cub3d->player->pos, w + 0.5, h + 0.5);
 	if (dir == 'N')
 	{
-		position_setter(cub3d->player->dir, 0, -1);
-		position_setter(cub3d->player->plane, -0.66, 0);
+		position_setter(cub3d->player->dir, -1, 0);
+		position_setter(cub3d->player->plane, 0, -0.66);
 	}
 	else if (dir == 'S')
 	{
-		position_setter(cub3d->player->dir, 0, 1);
-		position_setter(cub3d->player->plane, 0.66, 0);
+		position_setter(cub3d->player->dir, 1, 0);
+		position_setter(cub3d->player->plane, 0, 0.66);
 	}
 	else if (dir == 'E')
 	{
-		position_setter(cub3d->player->dir, 1, 0);
-		position_setter(cub3d->player->plane, 0, -0.66);
+		position_setter(cub3d->player->dir, 0, 1);
+		position_setter(cub3d->player->plane, -0.66, 0);
 	}
 	else if (dir == 'W')
 	{
-		position_setter(cub3d->player->dir, -1, 0);
-		position_setter(cub3d->player->plane, 0, 0.66);
+		position_setter(cub3d->player->dir, 0, -1);
+		position_setter(cub3d->player->plane, 0.66, 0);
 	}
 }
 
@@ -47,7 +47,7 @@ static int	middle_grid_checker(char *line, int w, t_cub3d *cub3d, int h)
 		if (is_nsew(line[i]) && cub3d->player->pos->x != 0
 			&& cub3d->player->pos->y != 0)
 			return (err_free(-1,
-					"Invalide player position.\n", cub3d, 0));
+					"Invalid player position.\n", cub3d, 0));
 		else if (is_nsew(line[i]) && cub3d->player->pos->x == 0
 				&& cub3d->player->pos->y == 0)
 			set_player(line[i], i, h, cub3d);
