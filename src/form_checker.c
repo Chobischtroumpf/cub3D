@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 14:19:11 by adorigo           #+#    #+#             */
-/*   Updated: 2020/02/03 10:14:06 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/02/04 07:10:16 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	resolution_form_checker(char *form)
 
 int	is_wall(int new_x, int new_y, t_cub3d *cub3d)
 {
-	if (new_x > cub3d->conf->grid_w - 1 || new_y > cub3d->conf->grid_h - 1)
+	if (new_x > cub3d->conf->grid_h - 1 || new_y > cub3d->conf->grid_w - 1)
 		return (1);
 	if (cub3d->grid[new_x][new_y] == 1)
 		return (1);

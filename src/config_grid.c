@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 09:19:07 by adorigo           #+#    #+#             */
-/*   Updated: 2020/01/31 11:17:06 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/02/04 06:55:33 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,16 @@ static void	make_grid_line(char *line, char *new_line, int w)
 	while (i != w)
 	{
 		if (ck == 0 && ft_isdigit(*line) && (ck = 1))
-		{
 			nb = nb * 10 + *line - '0';
-			// printf("if : %d\n", nb);
-		}
 		else if (ck == 0 && is_nsew(*line) && (ck = 1))
-		{
 			nb = *line;
-			// printf("first else if : %d\n", nb);
-		}
 		else if (!ft_isdigit(*line) && !is_nsew(*line) && ck == 1)
 		{
 			new_line[i++] = nb;
 			nb = 0;
 			ck = 0;
-			// printf(" second else  if : %d\n", nb);
 		}
 		line++;
-		// printf(" line : %s\n", line);
 	}
 }
 
