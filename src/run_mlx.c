@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 10:31:22 by adorigo           #+#    #+#             */
-/*   Updated: 2020/02/04 14:54:28 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/02/10 11:25:37 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ static int	keypress_callback(int keycode, t_cub3d *cub3d)
 
 	p = cub3d->player;
 	if (keycode == KEY_UP || keycode == KEY_W)
-		p->mov_dir = 2;
-	if (keycode == KEY_DOWN || keycode == KEY_S)
 		p->mov_dir = 1;
-	if (keycode == KEY_RIGHT)
-		p->rot_dir = -1;
-	if (keycode == KEY_LEFT)
-		p->rot_dir = 1;
-	if (keycode == KEY_D)
+	if (keycode == KEY_DOWN || keycode == KEY_S)
 		p->mov_dir = -1;
+	if (keycode == KEY_RIGHT)
+		p->rot_dir = 1;
+	if (keycode == KEY_LEFT)
+		p->rot_dir = -1;
+	if (keycode == KEY_D)
+		p->hor_mov = 1;
 	if (keycode == KEY_A)
-		p->mov_dir = -2;
+		p->hor_mov = -1;
 	return (0);
 }
 
@@ -46,9 +46,9 @@ static int	keyrelease_callback(int keycode, t_cub3d *cub3d)
 	if (keycode == KEY_LEFT)
 		p->rot_dir = 0;
 	if (keycode == KEY_D)
-		p->mov_dir = 0;
+		p->hor_mov = 0;
 	if (keycode == KEY_A)
-		p->mov_dir = 0;
+		p->hor_mov = 0;
 	if (keycode == KEY_ESC)
 	{
 		mlx_destroy_window(cub3d->mlx, cub3d->win);
@@ -73,7 +73,6 @@ static int	main_loop(t_cub3d *cub3d)
 	{
 		raycasting(cub3d);
 		render(cub3d);
-
 		update = 0;
 	}
 	p = cub3d->player;
@@ -81,9 +80,9 @@ static int	main_loop(t_cub3d *cub3d)
 		update = 0;
 	if (p->rot_dir)
 		update = rotate_player(cub3d);
-	if (p->mov_dir > 0)
+	if (p->mov_dir != 0)
 		update = move_player_fb(cub3d);
-	if (p->mov_dir < 0)
+	if (p->hor_mov != 0)
 		update = move_player_rl(cub3d);
 	return (0);
 }

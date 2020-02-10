@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 07:26:52 by adorigo           #+#    #+#             */
-/*   Updated: 2020/01/31 11:04:50 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/02/10 16:53:17 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static void	init_player(t_player *p)
 	p->rot_speed = 3;
 	p->mov_dir = 0;
 	p->rot_dir = 0;
-	p->hor_left_mov = 0;
-	p->hor_right_mov = 0;
+	p->hor_mov = 0;
+	p->hor_mov = 0;
 }
 
 static void	init_conf(t_config *conf, t_tex *tex)
@@ -50,6 +50,7 @@ static void	init_cub(t_cub3d *cub)
 	cub->data = 0;
 	cub->zbuff = 0;
 	cub->sp = 0;
+	cub->parsing = 0;
 }
 
 int			init_cub3d(t_cub3d *cub)

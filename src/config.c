@@ -1,30 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   config.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/03 06:57:37 by adorigo           #+#    #+#             */
-/*   Updated: 2020/02/04 14:21:13 by adorigo          ###   ########.fr       */
+/*   Created: 2020/01/08 10:59:46 by adorigo           #+#    #+#             */
+/*   Updated: 2020/02/10 16:57:51 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// static t_option_parser	g_pars_opt[] =
-// {
-// 	{"R", config_resolution ,1},
-// 	{"NO", config_texfile, 2},
-// 	{"SO", config_texfile, 2},
-// 	{"WE", config_texfile, 2},
-// 	{"EA", config_texfile, 2},
-// 	{"S", config_texfile, 1},
-	// {"F", ,1},
-	// {"C", ,1},
-	// {"1", ,0},
-	// {"0", ,0}
-// };
 
 static int	config_color(char *line, t_cub3d *cub3d, char op)
 {
@@ -60,8 +46,7 @@ static int	config_texfile(char *line, t_cub3d *cub3d, char op)
 	t_tex	*tex;
 
 	tex = cub3d->conf->tex;
-	while (*line == ' ')
-		line++;
+	line = ft_strtrim(line, " \n\t\v\f\r");
 	if (op == 'N' && !(tex->path[TEX_N] = ft_strdup(line)))
 		return (err_free(-1, "Failed to texfile malloc\n", cub3d, 0));
 	else if (op == 'S' && !(tex->path[TEX_S] = ft_strdup(line)))
@@ -83,8 +68,7 @@ static int	config_resolution(char *line, t_cub3d *cub3d)
 	if (!resolution_form_checker(line))
 		return (err_free(-1, "Invalide resolution format.\n", cub3d, 0));
 	conf = cub3d->conf;
-	while (*line == ' ')
-		line++;
+	line = ft_strtrim(line, " \n\t\v\f\r");
 	nb = ft_atoi(line);
 	if ((conf->res_w = nb) >= RMAX_W)
 		conf->res_w = RMAX_W;
@@ -104,16 +88,16 @@ static int	config_grid(char *line, t_cub3d *cub3d, t_config *conf)
 	if (!(grid_w = grid_form_checker(line)))
 	{
 		return (err_free(-1,
-			"Wrong map description : invlaide charactor.\n", cub3d, 0));
+			"Wrong map description : invalid character.\n", cub3d, 0));
 	}
 	if (conf->grid_w != 0 && conf->grid_w != grid_w)
 	{
 		return (err_free(-1,
-			"Wrong map description : invalide width.\n", cub3d, 0));
+			"Wrong map description : invalid width.\n", cub3d, 0));
 	}
 	conf->grid_w = grid_w;
 	conf->grid_h = conf->grid_h + 1;
-	if (!(new_grid = grid_joiner(cub3d->grid, line, cub3d)))
+	if (!(new_grid = join_grid(cub3d->grid, line, cub3d)))
 		return (err_free(-1, "Grid malloc failed.\n", cub3d, 0));
 	if (cub3d->grid)
 		free(cub3d->grid);
@@ -121,16 +105,9 @@ static int	config_grid(char *line, t_cub3d *cub3d, t_config *conf)
 	return (1);
 }
 
-int			line_parsing(char *line, t_cub3d *cub3d)
+int			get_config(char *line, t_cub3d *cub3d)
 {
-	// static int	map;
-	// char		*options;
-	// int			i;
-
-	// map = map;
-	while (*line == ' ')
-		line++;
-	printf("%s\n", line);
+	line = ft_strtrim(line, " 	\n\v\f\r");
 	if (*line == 'F' || *line == 'C')
 		return (config_color(line + 1, cub3d, *line));
 	else if (!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2)
@@ -147,6 +124,5 @@ int			line_parsing(char *line, t_cub3d *cub3d)
 		return (err_free(-1,
 			"Wrong map description : invalid character.\n", cub3d, 0));
 	}
-
 	return (1);
 }

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/19 09:08:07 by adorigo           #+#    #+#             */
-/*   Updated: 2020/02/04 07:46:51 by adorigo          ###   ########.fr       */
+/*   Created: 2020/01/12 09:08:07 by adorigo           #+#    #+#             */
+/*   Updated: 2020/02/10 15:21:26 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,27 @@ static void	set_player(char dir, int w, int h, t_cub3d *cub3d)
 	position_setter(cub3d->player->pos, w + 0.5, h + 0.5);
 	if (dir == 'N')
 	{
-		position_setter(cub3d->player->dir, -1, 0);
-		position_setter(cub3d->player->plane, 0, -0.66);
+		position_setter(cub3d->player->dir, 0, -1);
+		position_setter(cub3d->player->plane, -0.66, 0);
 	}
 	else if (dir == 'S')
 	{
-		position_setter(cub3d->player->dir, 1, 0);
-		position_setter(cub3d->player->plane, 0, 0.66);
+		position_setter(cub3d->player->dir, 0, 1);
+		position_setter(cub3d->player->plane, 0.66, 0);
 	}
 	else if (dir == 'E')
 	{
-		position_setter(cub3d->player->dir, 0, 1);
-		position_setter(cub3d->player->plane, -0.66, 0);
+		position_setter(cub3d->player->dir, 1, 0);
+		position_setter(cub3d->player->plane, 0, -0.66);
 	}
 	else if (dir == 'W')
 	{
-		position_setter(cub3d->player->dir, 0, -1);
-		position_setter(cub3d->player->plane, 0.66, 0);
+		position_setter(cub3d->player->dir, -1, 0);
+		position_setter(cub3d->player->plane, 0, 0.66);
 	}
 }
 
-static int	middle_grid_checker(char *line, int w, t_cub3d *cub3d, int h)
+static int	check_middle_grid(char *line, int w, t_cub3d *cub3d, int h)
 {
 	int i;
 
@@ -57,7 +57,7 @@ static int	middle_grid_checker(char *line, int w, t_cub3d *cub3d, int h)
 	return (1);
 }
 
-static int	grid_line_checker(char *line, int w, char op, t_cub3d *cub3d)
+static int	check_grid_line(char *line, int w, char op, t_cub3d *cub3d)
 {
 	int			i;
 	static int	h = -1;
@@ -79,7 +79,7 @@ static int	grid_line_checker(char *line, int w, char op, t_cub3d *cub3d)
 			return (err_free(-1,
 					"Map is not surrounded by wall\n", cub3d, 0));
 		}
-		if (!(middle_grid_checker(line, w, cub3d, h)))
+		if (!(check_middle_grid(line, w, cub3d, h)))
 			return (0);
 		h++;
 	}
@@ -96,19 +96,15 @@ int			check_grid(t_cub3d *cub3d)
 	w = cub3d->conf->grid_w;
 	h = cub3d->conf->grid_h;
 	grid = cub3d->grid;
-	if (!grid_line_checker(grid[0], w, 'f', cub3d)
-		|| !grid_line_checker(grid[h - 1], w, 'l', cub3d))
+	if (!check_grid_line(grid[0], w, 'f', cub3d)
+		|| !check_grid_line(grid[h - 1], w, 'l', cub3d))
 		return (0);
 	i = 0;
 	while (++i < h - 1)
-	{
-		if (!grid_line_checker(grid[i], w, 'm', cub3d))
+		if (!check_grid_line(grid[i], w, 'm', cub3d))
 			return (0);
-	}
 	if (cub3d->player->pos->x == 0 && cub3d->player->pos->y == 0)
-	{
 		return (err_free(-1,
 				"Wrong map description : no player position.\n", cub3d, 0));
-	}
 	return (1);
 }

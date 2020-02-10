@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 13:08:36 by adorigo           #+#    #+#             */
-/*   Updated: 2020/02/04 14:17:03 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/02/10 16:53:41 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,11 @@ int			set_cub3d(char *map_file, t_cub3d *cub3d)
 	line = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (!line)
-			return(0);
-		else if (!line_parsing(line, cub3d))
+		if (*line == '\0' && cub3d->parsing != 1)
+			continue;
+		else if (!line)
+			return (0);
+		else if (!get_config(line, cub3d))
 		{
 			ft_strfree(&line, 0);
 			return (0);

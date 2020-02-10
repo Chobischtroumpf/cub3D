@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/18 09:19:07 by adorigo           #+#    #+#             */
-/*   Updated: 2020/02/04 06:55:33 by adorigo          ###   ########.fr       */
+/*   Created: 2020/01/09 07:19:07 by adorigo           #+#    #+#             */
+/*   Updated: 2020/02/10 16:54:47 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,36 @@
 static void	make_grid_line(char *line, char *new_line, int w)
 {
 	int	nb;
-	int	ck;
 	int	i;
 
 	nb = 0;
-	ck = 0;
 	i = 0;
 	while (i != w)
 	{
-		if (ck == 0 && ft_isdigit(*line) && (ck = 1))
+		line = ft_strtrim(line, " \n\t\v\f\r");
+		if (ft_isdigit(*line))
 			nb = nb * 10 + *line - '0';
-		else if (ck == 0 && is_nsew(*line) && (ck = 1))
-			nb = *line;
-		else if (!ft_isdigit(*line) && !is_nsew(*line) && ck == 1)
-		{
-			new_line[i++] = nb;
-			nb = 0;
-			ck = 0;
-		}
+		else if (is_nsew(*line))
+			nb = (int)*line;
+		new_line[i++] = nb;
+		nb = 0;
 		line++;
 	}
 }
 
-char		**grid_joiner(char **grid, char *line, t_cub3d *cub3d)
+char		**join_grid(char **grid, char *line, t_cub3d *cub3d)
 {
 	char	**new_grid;
 	char	*new_line;
 	int		i;
 
+	cub3d->parsing = 1;
 	if (!(new_grid = (char**)malloc(sizeof(char*) * cub3d->conf->grid_h)))
 	{
 		cub3d->conf->grid_h -= 1;
 		return (0);
 	}
-	if (!(new_line = (char*)malloc(sizeof(char) * cub3d->conf->grid_w)))
+	if (!(new_line = (char*)malloc(sizeof(char) * (cub3d->conf->grid_w + 1))))
 	{
 		cub3d->conf->grid_h -= 1;
 		return (0);
@@ -57,6 +53,7 @@ char		**grid_joiner(char **grid, char *line, t_cub3d *cub3d)
 	i = -1;
 	while (++i < cub3d->conf->grid_h - 1)
 		new_grid[i] = grid[i];
+	new_line[cub3d->conf->grid_w] = '\0';
 	new_grid[i] = new_line;
 	return (new_grid);
 }

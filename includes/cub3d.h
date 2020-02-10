@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 17:49:00 by adorigo           #+#    #+#             */
-/*   Updated: 2020/02/04 14:20:33 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/02/10 16:52:53 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define RMAX_H 1440
 # define RMIN_W 480
 # define RMIN_H 320
-# define MS 0.055
+# define MS 0.1
 # define OFFSET 0.15
 
 
@@ -74,8 +74,7 @@ typedef	struct				s_player
 	int						rot_speed;
 	int						mov_dir;
 	int						rot_dir;
-	int						hor_right_mov;
-	int						hor_left_mov;
+	int						hor_mov;
 }							t_player;
 
 typedef	struct				s_ray
@@ -135,18 +134,10 @@ typedef	struct				s_cub3d
 	void					*img;
 	void					*data;
 	int						bpp;
+	int						parsing;
 	int						size_line;
 	int						endian;
 }							t_cub3d;
-
-typedef int					(*t_option_parser_func)(t_cub3d *cub3d, char *line);
-
-typedef struct				s_option_parser
-{
-	char					*id;
-	t_option_parser_func	func;
-	int						to_skip;
-}							t_option_parser;
 
 int							init_cub3d(t_cub3d *cub);
 int							set_cub3d(char *map_file, t_cub3d *cub3d);
@@ -155,9 +146,9 @@ int							check_color_form(char *form);
 int							resolution_form_checker(char *form);
 int							check_grid(t_cub3d *cub3d);
 int							free_all(t_cub3d *cub3d, int ret);
-char						**grid_joiner(char **grid, char *line,
+char						**join_grid(char **grid, char *line,
 															t_cub3d *cub3d);
-int							line_parsing(char *line, t_cub3d *cub3d);
+int							get_config(char *line, t_cub3d *cub3d);
 int							is_nsew(char c);
 double						deg2rad(double deg);
 int							run_mlx(t_cub3d *cub3d);
