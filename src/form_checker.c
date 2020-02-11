@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 14:35:11 by wpark             #+#    #+#             */
-/*   Updated: 2020/02/10 16:25:19 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/02/11 07:51:55 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	grid_form_checker(char *form)
 	grid_w = 0;
 	while (*form != '\0')
 	{
-		if (*form != '0' && *form != '1' && *form != '2' && *form != ' ' 
-			&& *form != '\t' && *form!= '\v' && *form != '\f' && *form != '\r'
+		if (*form != '0' && *form != '1' && *form != '2' && *form != ' '
+			&& *form != '\t' && *form != '\v' && *form != '\f' && *form != '\r'
 			&& *form != 'N' && *form != 'S' && *form != 'E' && *form != 'W')
 			return (0);
 		if ((ft_isdigit(*form) || *form == 'N'

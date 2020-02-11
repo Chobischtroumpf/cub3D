@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 09:08:07 by adorigo           #+#    #+#             */
-/*   Updated: 2020/02/10 15:21:26 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/02/11 07:52:18 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,5 @@ int			check_grid(t_cub3d *cub3d)
 	if (cub3d->player->pos->x == 0 && cub3d->player->pos->y == 0)
 		return (err_free(-1,
 				"Wrong map description : no player position.\n", cub3d, 0));
-	return (1);
+		return (1);
 }
