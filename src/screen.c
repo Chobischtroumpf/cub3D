@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 08:03:14 by adorigo           #+#    #+#             */
-/*   Updated: 2020/02/06 14:02:23 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/02/13 09:45:28 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void		ceiling_on_screen(t_cub3d *cub3d, t_ray *ray, int *screen)
 
 void		floor_on_screen(t_cub3d *cub3d, t_ray *ray, int *screen)
 {
-	int y;
+	unsigned int y;
 
-	y = ray->draw_end;
-	while (y < cub3d->conf->res_h)
+	y = (unsigned int)ray->draw_end;
+	while (y < (unsigned int)cub3d->conf->res_h)
 	{
 		screen[cub3d->conf->res_w * y + ray->now] = cub3d->conf->color_f;
 		y++;

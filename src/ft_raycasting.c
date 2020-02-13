@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 11:18:33 by adorigo           #+#    #+#             */
-/*   Updated: 2020/02/07 13:51:13 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/02/13 09:46:01 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void
 		ray->wall_type = TEX_N;
 	else if (is_side == 0 && step[1] > 0)
 		ray->wall_type = TEX_S;
-	ray->wall_h = (int)(cub3d->conf->res_h / ray->dist);
+	ray->wall_h = (int)(cub3d->conf->res_h / (ray->dist + 0.0005));
 	ray->is_side = is_side;
 	ray->draw_start = -ray->wall_h / 2 + cub3d->conf->res_h / 2;
 	if (ray->draw_start < 0)

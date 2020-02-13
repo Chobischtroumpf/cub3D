@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 17:49:00 by adorigo           #+#    #+#             */
-/*   Updated: 2020/02/10 16:52:53 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/02/13 09:46:07 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define RMAX_H 1440
 # define RMIN_W 480
 # define RMIN_H 320
-# define MS 0.1
+# define MS 0.08
 # define OFFSET 0.15
 
 
