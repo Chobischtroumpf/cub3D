@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+         #
+#    By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/11 08:51:16 by adorigo           #+#    #+#              #
-#    Updated: 2020/02/11 08:51:18 by adorigo          ###   ########.fr        #
+#    Updated: 2020/04/19 14:56:40 by adorigo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,8 @@ OBJ_NAME = $(SRC_NAME:.c=.o)
 CC = clang
 CFLAGS = -Wall -Wextra
 
-CPPFLAGS = -I includes -I libft -I minilibx_opengl
-LDFLAGS = -L libft -L minilibx_opengl
+CPPFLAGS = -I includes -I libft -I $(MINILIBX_PATH)
+LDFLAGS = -L libft -L $(MINILIBX_PATH)
 LDLIBS = -lft -lm -lmlx -framework OpenGL -framework AppKit
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
@@ -71,7 +71,7 @@ clean:
 
 fclean:
 	@make -C libft fclean
-	@make -C minilibx_opengl clean
+	@make -C $(MINILIBX_PATH) clean
 	@rm -rf $(OBJ_PATH)
 	@rm -f $(NAME)
 
