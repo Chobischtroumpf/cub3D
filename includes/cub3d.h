@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 17:49:00 by adorigo           #+#    #+#             */
-/*   Updated: 2020/02/13 09:46:07 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/04/23 11:15:30 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <errno.h>
+# include <dirent.h>
 # include "libft.h"
 # include "mlx.h"
 # include "key.h"
@@ -54,6 +55,17 @@ typedef	struct				s_tex
 	int						endian;
 }							t_tex;
 
+typedef struct				s_list_files
+{
+	struct dirent			*dirent;
+	int						x_init;
+	int						y_init;
+	int						x_end;
+	int						y_end;
+	struct s_list_files		*next;
+}							t_list_files;
+
+
 typedef struct				s_config
 {
 	int						res_w;
@@ -62,6 +74,11 @@ typedef struct				s_config
 	int						grid_h;
 	int						color_f;
 	int						color_c;
+	char					*mydir;
+	char					*file;
+	int						d_name_len;
+	t_pos					*pos;
+	t_list_files			*list_files;
 	t_tex					*tex;
 }							t_config;
 
@@ -137,6 +154,7 @@ typedef	struct				s_cub3d
 	int						parsing;
 	int						size_line;
 	int						endian;
+	int						update;
 }							t_cub3d;
 
 int							init_cub3d(t_cub3d *cub);
@@ -176,5 +194,10 @@ int							calc_side_dist(t_pos *side,
 								t_pos *delta, int map[], int step[]);
 int							err_msg(int erno, char *msg, int ret);
 int							h_translate_player(t_cub3d *cub3d);
-
+int							keypress_callback(int keycode, t_cub3d *cub3d);
+int							keyrelease_callback(int keycode, t_cub3d *cub3d);
+int							exit_callback(t_cub3d *cub3d);
+int							get_file(t_cub3d *cub3d);
+int							ft_listsize(t_list_files *lst);
+void						ft_listclear(t_cub3d *cub);
 #endif

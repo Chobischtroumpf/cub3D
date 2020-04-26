@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   run_mlx.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 10:31:22 by adorigo           #+#    #+#             */
-/*   Updated: 2020/02/10 11:25:37 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/04/23 13:40:44 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	keypress_callback(int keycode, t_cub3d *cub3d)
+int	keypress_callback(int keycode, t_cub3d *cub3d)
 {
 	t_player	*p;
 
@@ -32,7 +32,7 @@ static int	keypress_callback(int keycode, t_cub3d *cub3d)
 	return (0);
 }
 
-static int	keyrelease_callback(int keycode, t_cub3d *cub3d)
+int	keyrelease_callback(int keycode, t_cub3d *cub3d)
 {
 	t_player	*p;
 
@@ -57,7 +57,7 @@ static int	keyrelease_callback(int keycode, t_cub3d *cub3d)
 	return (0);
 }
 
-static int	exit_callback(t_cub3d *cub3d)
+int	exit_callback(t_cub3d *cub3d)
 {
 	free_all(cub3d, 1);
 	exit(EXIT_SUCCESS);

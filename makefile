@@ -6,7 +6,7 @@
 #    By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/11 08:51:16 by adorigo           #+#    #+#              #
-#    Updated: 2020/04/19 14:56:40 by adorigo          ###   ########.fr        #
+#    Updated: 2020/04/23 13:42:47 by adorigo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,24 +15,26 @@ NAME = cub3D
 MINILIBX_PATH = ./minilibx_opengl
 
 SRC_PATH = src
-SRC_NAME = check_grid.c \
-			config_grid.c \
-			cub_init.c \
+SRC_NAME = check_grid.c		\
+			config_grid.c	\
+			cub_init.c		\
 			cub3d_setting.c \
-			errors.c \
-			form_checker.c \
-			free.c \
-			ft_raycasting.c \
-			main.c \
-			config.c \
-			player.c \
-			render.c \
-			run_mlx.c \
-			screen_shot.c \
-			screen.c \
-			sp_screen.c \
-			sprite.c \
-			texture.c
+			errors.c		\
+			form_checker.c	\
+			free.c			\
+			ft_raycasting.c	\
+			main.c			\
+			config.c		\
+			player.c		\
+			render.c		\
+			run_mlx.c		\
+			screen_shot.c	\
+			screen.c		\
+			sp_screen.c		\
+			sprite.c		\
+			texture.c		\
+			files.c			\
+			files2.c
 
 
 OBJ_PATH = objs
@@ -43,7 +45,7 @@ CFLAGS = -Wall -Wextra
 
 CPPFLAGS = -I includes -I libft -I $(MINILIBX_PATH)
 LDFLAGS = -L libft -L $(MINILIBX_PATH)
-LDLIBS = -lft -lm -lmlx -framework OpenGL -framework AppKit
+LDLIBS = -lft -lm -lmlx -framework OpenGL -framework AppKit -fsanitize=address
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
@@ -69,6 +71,16 @@ clean:
 	@rm -f $(OBJ)
 	@rmdir $(OBJ_PATH) 2> /dev/null || true
 
+fclean_minilib:
+	@make -C $(MINILIBX_PATH) clean
+
+fclean_libft:
+	@make -C libft fclean
+
+fclean_cub3d:
+	@rm -rf $(OBJ_PATH)
+	@rm -f $(NAME)
+
 fclean:
 	@make -C libft fclean
 	@make -C $(MINILIBX_PATH) clean
@@ -76,6 +88,14 @@ fclean:
 	@rm -f $(NAME)
 
 re: fclean all
+
+re_cub3d: fclean_cub3d all
+
+re_libft:
+	@make -C libft re
+
+re_minilibx:
+	@make -C $(MINILIBX_PATH) re
 
 bonus: all
 

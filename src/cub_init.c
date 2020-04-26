@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 07:26:52 by adorigo           #+#    #+#             */
-/*   Updated: 2020/02/10 16:53:17 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/04/23 11:29:48 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ static void	init_conf(t_config *conf, t_tex *tex)
 	conf->res_w = 0;
 	conf->color_c = -1;
 	conf->color_f = -1;
+	conf->d_name_len = 0;
+	conf->list_files = NULL;
+
 }
 
 static void	init_cub(t_cub3d *cub)
@@ -51,12 +54,15 @@ static void	init_cub(t_cub3d *cub)
 	cub->zbuff = 0;
 	cub->sp = 0;
 	cub->parsing = 0;
+	cub->update = 0;
 }
 
 int			init_cub3d(t_cub3d *cub)
 {
 	if (!(cub->conf = malloc(sizeof(t_config)))
 		|| !(cub->conf->tex = malloc(sizeof(t_tex)))
+		|| !(cub->conf->list_files = malloc(sizeof(t_list_files)))
+		|| !(cub->conf->pos = malloc(sizeof(t_pos)))
 		|| !(cub->player = malloc(sizeof(t_player)))
 		|| !(cub->player->pos = malloc(sizeof(t_pos)))
 		|| !(cub->player->dir = malloc(sizeof(t_pos)))
