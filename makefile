@@ -6,7 +6,7 @@
 #    By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/11 08:51:16 by adorigo           #+#    #+#              #
-#    Updated: 2020/04/23 13:42:47 by adorigo          ###   ########.fr        #
+#    Updated: 2020/06/05 18:27:37 by adorigo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ CFLAGS = -Wall -Wextra
 
 CPPFLAGS = -I includes -I libft -I $(MINILIBX_PATH)
 LDFLAGS = -L libft -L $(MINILIBX_PATH)
-LDLIBS = -lft -lm -lmlx -framework OpenGL -framework AppKit -fsanitize=address
+LDLIBS = -lft -lm -lmlx -framework OpenGL -framework AppKit
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))

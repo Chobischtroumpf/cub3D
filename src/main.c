@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 14:44:33 by adorigo           #+#    #+#             */
-/*   Updated: 2020/04/21 00:27:01 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/06/05 18:25:40 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,21 @@ int	main(int ac, char **av)
 			exit(EXIT_FAILURE);
 		run_mlx(&cub3d);
 	}
-	else if (ac == 2 && !ft_strcmp(av[1], "-save"))
+	else if (ac == 2)
+	{
+		if (!init_cub3d(&cub3d) || !set_cub3d(av[1], &cub3d)
+			|| !set_screen(&cub3d) || !load_texture(&cub3d))
+			exit(EXIT_FAILURE);
+		run_mlx(&cub3d);
+	}
+	else if (ac == 3 && !ft_strcmp(av[2], "--save"))
 	{
 		if (!init_cub3d(&cub3d) || !set_cub3d(av[1], &cub3d)
 			|| !set_screen(&cub3d) || !load_texture(&cub3d))
 			exit(EXIT_FAILURE);
 		screen_shot(&cub3d);
 	}
-	else if (ac == 3 && ft_strcmp(av[2], "-save"))
+	else if (ac == 3 && ft_strcmp(av[2], "--save"))
 		return (err_msg(-1, "Wrong option.\n", EXIT_FAILURE));
 	else if (ac > 3)
 		return (err_msg(-1, "Too many arguments.\n", EXIT_FAILURE));
