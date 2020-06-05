@@ -6,7 +6,7 @@
 #    By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/11 08:51:16 by adorigo           #+#    #+#              #
-#    Updated: 2020/06/05 18:27:37 by adorigo          ###   ########.fr        #
+#    Updated: 2020/06/05 18:46:25 by adorigo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ LDLIBS = -lft -lm -lmlx -framework OpenGL -framework AppKit
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 
-all: libft minilibx_all $(NAME)
+all: libft minilibx $(NAME)
 
 $(NAME): $(OBJ) libft/libft.a
 	@rm -rf screenshot.bmp
@@ -71,7 +71,17 @@ clean:
 	@rm -f $(OBJ)
 	@rmdir $(OBJ_PATH) 2> /dev/null || true
 
-fclean_minilib:
+clean_libft:
+	@make -C libft clean
+
+clean_minilibx:
+	@make -C minilibx_opengl clean
+
+clean_cub3d:
+	@rm -rf $(OBJ)
+	@rmdir $(OBJ_PATH) 2> /dev/null || true
+
+fclean_minilibx:
 	@make -C $(MINILIBX_PATH) clean
 
 fclean_libft:
@@ -81,15 +91,11 @@ fclean_cub3d:
 	@rm -rf $(OBJ_PATH)
 	@rm -f $(NAME)
 
-fclean:
-	@make -C libft fclean
-	@make -C $(MINILIBX_PATH) clean
-	@rm -rf $(OBJ_PATH)
-	@rm -f $(NAME)
+fclean: fclean_cub3d fclean_libft fclean_minilibx
 
 re: fclean all
 
-re_cub3d: fclean_cub3d all
+re_cub3d: fclean_cub3d $(NAME)
 
 re_libft:
 	@make -C libft re
@@ -99,7 +105,7 @@ re_minilibx:
 
 bonus: all
 
-minilibx_all:
+minilibx:
 	make -C $(MINILIBX_PATH) all
 
 .PHONY: all clean fclean re libft
