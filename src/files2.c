@@ -12,6 +12,11 @@
 
 #include "cub3d.h"
 
+
+/*
+** ft_listsize(t_list_files *lst) will take a t_list_files structure
+** and count how many elements it has and returns the retrieved value
+*/
 int			ft_listsize(t_list_files *lst)
 {
 	int cnt;
@@ -25,6 +30,10 @@ int			ft_listsize(t_list_files *lst)
 	return (cnt);
 }
 
+/*
+** ft_listdelone(t_list_files *lst) ft_listdelone takes the current element in
+** *lst and frees it, it does not return anything
+*/
 static void	ft_listdelone(t_list_files *lst)
 {
 	if (lst)
@@ -33,6 +42,11 @@ static void	ft_listdelone(t_list_files *lst)
 		lst = 0;
 	}
 }
+
+/*
+** ft_listclear(t_cub3d *cub) takes the t_cub3d structure, and deletes every
+** element in the t_list_files sub-structure
+*/
 
 void		ft_listclear(t_cub3d *cub)
 {

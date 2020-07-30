@@ -98,7 +98,8 @@ void		pos_x(t_cub3d *cub3d)
 }
 
 /*
-**	the print_files() function will take the cub3d structure, and iterate through 
+** the print_files() function will take the t_list_files structure
+** and iterate through it, printing every element  
 **	
 **
 **
@@ -113,7 +114,7 @@ int			print_files(t_cub3d *cub3d)
 
 	cub3d->conf->pos->y = 120;
 	pos_x(cub3d);
-	printf("%f\n", 	cub3d->conf->pos->x);
+	printf("%f\n", 	cub3d->conf->pos->x); //debug
 	i = 0;
 	list = cub3d->conf->list_files;
 	lst_len = ft_listsize(list);
@@ -122,8 +123,12 @@ int			print_files(t_cub3d *cub3d)
 	{
 		list->x_init = (int)cub3d->conf->pos->x;
 		list->y_init = (int)cub3d->conf->pos->y;
-		mlx_string_put(cub3d->mlx, cub3d->win, cub3d->conf->pos->x,
-			cub3d->conf->pos->y += 23, 0xFFFFFF, list->dirent->d_name);
+		if (list->dirent->d_type == DT_DIR)
+			mlx_string_put(cub3d->mlx, cub3d->win, cub3d->conf->pos->x,
+				cub3d->conf->pos->y += 23, 0xADD8E6, list->dirent->d_name);
+		else
+			mlx_string_put(cub3d->mlx, cub3d->win, cub3d->conf->pos->x,
+				cub3d->conf->pos->y += 23, 0xFFFFFF, list->dirent->d_name);
 		list->x_end = (cub3d->conf->pos->x + (cub3d->conf->d_name_len + 2) * 7);
 		list->y_end = (int)cub3d->conf->pos->y;
 		list = list->next;
@@ -135,6 +140,16 @@ int			print_files(t_cub3d *cub3d)
 	}
 	return (1);
 }
+
+/*
+** get_cub(t_cub3d *cub3d) is the function that will try and get the fd
+** to the map file, in case it was not given as first argument when executing
+** the program.
+** what it does, is that it will get the current directory, and print it 
+** to the window, it will then open the directory, and for every file in the
+** directory, it will add them to the t_list_files *constructor variable. once
+** once it has read and saved all the files, it will call the print_files() function
+*/
 
 static int	get_cub(t_cub3d *cub3d)
 {
@@ -159,13 +174,16 @@ static int	get_cub(t_cub3d *cub3d)
 		constructor = constructor->next;
 	}
 	constructor->dirent = NULL;
-	if (!(constructor->next = malloc(sizeof(t_list_files))))
-		return (0);
-	constructor->next = NULL;
 	if (!print_files(cub3d))
 		return (0);
 	return (1);
 }
+
+/*
+** second_loop(t_cub3d *cub3d) should really be called main_loop, but the name was already taken
+** all this does is clear the window, clear the t_list_files struct
+** and then go into the get_cub function
+*/
 
 int	second_loop(t_cub3d *cub3d)
 {
@@ -181,6 +199,12 @@ int	second_loop(t_cub3d *cub3d)
 	return (0);
 }
 
+
+/*
+** run_mlx2(t_cub3d *cub3d) is the function that will loop over all the 
+** mlx_hook types of function, and will allow for events to happen in the window previously generated
+*/
+
 int	run_mlx2(t_cub3d *cub3d)
 {
 	mlx_mouse_hook(cub3d->win, mouse_hook, cub3d);
@@ -192,6 +216,10 @@ int	run_mlx2(t_cub3d *cub3d)
 	return (1);
 }
 
+/*
+** get_file(t_cub3d *cub3d) is the function that initialises the mlx window and
+** then goes into the run_mlx2() function
+*/
 
 int			get_file(t_cub3d *cub3d)
 {
