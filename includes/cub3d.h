@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 17:49:00 by adorigo           #+#    #+#             */
-/*   Updated: 2020/04/23 11:15:30 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/07/29 14:45:43 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ typedef	struct				s_cub3d
 	int						size_line;
 	int						endian;
 	int						update;
+	int						exit;
 }							t_cub3d;
 
 int							init_cub3d(t_cub3d *cub);

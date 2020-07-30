@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 07:26:52 by adorigo           #+#    #+#             */
-/*   Updated: 2020/04/23 11:29:48 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/07/29 14:46:04 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static void	init_cub(t_cub3d *cub)
 	cub->sp = 0;
 	cub->parsing = 0;
 	cub->update = 0;
+	cub->exit = 0;
 }
 
 int			init_cub3d(t_cub3d *cub)

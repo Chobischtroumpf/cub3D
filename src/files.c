@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 17:07:51 by adorigo           #+#    #+#             */
-/*   Updated: 2020/04/23 14:04:34 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/07/29 21:47:47 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,24 @@ int			mouse_hook(int button, int x, int y, t_cub3d *cub3d)
 		printf("x :%d, y :%d\n", x, y);
 	while (list->next != NULL)
 	{
-		printf("x_init :%d, y_init :%d\n", list->x_init, list->y_init);
-		printf("x_end :%d, y_end :%d\n", list->x_end, list->y_end);
+		// printf("x_init :%d, y_init :%d\n", list->x_init, list->y_init);
+		// printf("x_end :%d, y_end :%d\n", list->x_end, list->y_end);
 		if (( x >= list->x_init && x <= list->x_end) &&
 			(y >= list->y_init && y <= list->y_end))
 		{
 			if (list->dirent->d_type == DT_REG)
 			{
-				printf("inside dt_reg if");
+				printf("inside dt_reg if\n");
 				if (!(cub3d->conf->file = ft_substr(list->dirent->d_name, 0,
 					list->dirent->d_namlen)))
-					return(err_free(-1, "file allocation failed", cub3d, 0));
+					return(err_free(-1, "file allocation failed\n", cub3d, 0));
 				mlx_destroy_window(cub3d->mlx, cub3d->win);
+				cub3d->exit = 1;
 				return (0);
 			}
 			else if (list->dirent->d_type == DT_DIR)
 			{
-				printf("inside dt_dir if");
+				printf("inside dt_dir if\n");
 				free(cub3d->conf->mydir);
 				if (!(cub3d->conf->mydir = ft_substr(list->dirent->d_name, 0,
 					list->dirent->d_namlen)))
@@ -95,6 +96,14 @@ void		pos_x(t_cub3d *cub3d)
 			cub3d->conf->pos->x = 30;
 	}
 }
+
+/*
+**	the print_files() function will take the cub3d structure, and iterate through 
+**	
+**
+**
+**
+*/
 
 int			print_files(t_cub3d *cub3d)
 {
