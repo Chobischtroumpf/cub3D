@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/11 08:51:16 by adorigo           #+#    #+#              #
-#    Updated: 2020/06/05 18:46:25 by adorigo          ###   ########.fr        #
+#    Updated: 2020/06/05 22:18:08 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,8 @@ SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 
 all: libft minilibx $(NAME)
+
+all2: libft minilibx_linux $(NAME)
 
 $(NAME): $(OBJ) libft/libft.a
 	@rm -rf screenshot.bmp
@@ -107,5 +109,8 @@ bonus: all
 
 minilibx:
 	make -C $(MINILIBX_PATH) all
+
+minilibx_linux:
+	@make -C minilibx-linux all
 
 .PHONY: all clean fclean re libft
