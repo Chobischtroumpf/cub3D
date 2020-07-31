@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 17:07:51 by adorigo           #+#    #+#             */
-/*   Updated: 2020/07/29 21:47:47 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/07/31 16:54:05 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ int			mouse_hook(int button, int x, int y, t_cub3d *cub3d)
 		printf("x :%d, y :%d\n", x, y);
 	while (list->next != NULL)
 	{
-		// printf("x_init :%d, y_init :%d\n", list->x_init, list->y_init);
-		// printf("x_end :%d, y_end :%d\n", list->x_end, list->y_end);
 		if (( x >= list->x_init && x <= list->x_end) &&
 			(y >= list->y_init && y <= list->y_end))
 		{
@@ -42,7 +40,6 @@ int			mouse_hook(int button, int x, int y, t_cub3d *cub3d)
 				if (!(cub3d->conf->mydir = ft_substr(list->dirent->d_name, 0,
 					list->dirent->d_namlen)))
 					return(err_free(-1, "file allocation failed", cub3d, 0));
-					printf("mydir = %s\n", cub3d->conf->mydir);
 			}
 			else
 			{
@@ -74,6 +71,7 @@ void		pos_x(t_cub3d *cub3d)
 				cub3d->conf->d_name_len = list->dirent->d_namlen;
 			list = list->next;
 		}
+
 		cub3d->conf->pos->x -= (cub3d->conf->d_name_len / 2 * 7);
 	}
 	else
@@ -99,11 +97,18 @@ void		pos_x(t_cub3d *cub3d)
 
 /*
 ** the print_files() function will take the t_list_files structure
-** and iterate through it, printing every element  
-**	
-**
-**
-**
+** and iterate through it, printing every element to the window.
+** to do so the function will get the amount of files/directories, and save it
+** in the lst_len variable, it will then loop lst_len times on the list.
+** every time it loops on an element of the list, the function will save 
+** an initial x (variable) and y (constant) position into that element's x_init
+** and y_init variables, it then prints the dirent->name element to the window.
+** after printing, it will take the new x and y positions, and save them into
+** x_end and y_end, effectively creating a rectangular zone that can later be
+** used to detect clicks or other stuff.
+** I have decided that the max size for a column is 15 elements, so every
+** 15 elements, the x_init and y_init position setters are reset to their
+** original position (+ (the size * 7) of the biggest element in that list)
 */
 
 int			print_files(t_cub3d *cub3d)
@@ -123,12 +128,8 @@ int			print_files(t_cub3d *cub3d)
 	{
 		list->x_init = (int)cub3d->conf->pos->x;
 		list->y_init = (int)cub3d->conf->pos->y;
-		if (list->dirent->d_type == DT_DIR)
-			mlx_string_put(cub3d->mlx, cub3d->win, cub3d->conf->pos->x,
-				cub3d->conf->pos->y += 23, 0xADD8E6, list->dirent->d_name);
-		else
-			mlx_string_put(cub3d->mlx, cub3d->win, cub3d->conf->pos->x,
-				cub3d->conf->pos->y += 23, 0xFFFFFF, list->dirent->d_name);
+		mlx_string_put(cub3d->mlx, cub3d->win, cub3d->conf->pos->x,
+			cub3d->conf->pos->y += 23, 0xFFFFFF, list->dirent->d_name);
 		list->x_end = (cub3d->conf->pos->x + (cub3d->conf->d_name_len + 2) * 7);
 		list->y_end = (int)cub3d->conf->pos->y;
 		list = list->next;
@@ -148,7 +149,7 @@ int			print_files(t_cub3d *cub3d)
 ** what it does, is that it will get the current directory, and print it 
 ** to the window, it will then open the directory, and for every file in the
 ** directory, it will add them to the t_list_files *constructor variable. once
-** once it has read and saved all the files, it will call the print_files() function
+** it has read and saved all the files, it will call the print_files() function
 */
 
 static int	get_cub(t_cub3d *cub3d)
@@ -174,6 +175,9 @@ static int	get_cub(t_cub3d *cub3d)
 		constructor = constructor->next;
 	}
 	constructor->dirent = NULL;
+	if (!(constructor->next = malloc(sizeof(t_list_files))))
+		return (0);
+	constructor->next = NULL;
 	if (!print_files(cub3d))
 		return (0);
 	return (1);
