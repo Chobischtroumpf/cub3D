@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/11 08:51:16 by adorigo           #+#    #+#              #
-#    Updated: 2020/06/05 22:18:08 by marvin           ###   ########.fr        #
+#    Updated: 2020/07/31 16:56:19 by adorigo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ libft:
 
 clean:
 	@make -C libft clean
-	@make -C minilibx_opengl clean
+	# @make -C minilibx_opengl clean
 	@rm -f $(OBJ)
 	@rmdir $(OBJ_PATH) 2> /dev/null || true
 
