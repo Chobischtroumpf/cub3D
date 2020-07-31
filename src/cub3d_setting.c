@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_setting.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adorigo <adorigo@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 13:08:36 by adorigo           #+#    #+#             */
-/*   Updated: 2020/02/10 16:53:41 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/07/31 14:21:08 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+
 /*
-** check if map is surounded by 1
-** check if there is only one "N/S/E/W"
-** check if there is charactor except from 0, 1, 2, NSEW
+** ck_extention(char *map_file, t_cub3d *cub3d) takes the map_file variable and
+** in the event it is not ".cub", frees the t_cub3d structure and returns -1
 */
 
 static int	ck_extention(char *map_file, t_cub3d *cub3d)
@@ -28,6 +28,13 @@ static int	ck_extention(char *map_file, t_cub3d *cub3d)
 	}
 	return (1);
 }
+
+/*
+** ck_config(t_cub3d *cub3d) takes the t_cub3d struct, and checks that all the
+** necessary informations were correctly saved in the structure, in case they
+** were not, it will free the structure, print the appropriate message and
+** return -1
+*/
 
 static int	ck_config(t_cub3d *cub3d)
 {
@@ -51,6 +58,12 @@ static int	ck_config(t_cub3d *cub3d)
 		return (0);
 	return (1);
 }
+
+/*
+** set_cub3d(char *map_file, t_cub3d *cub3d) takes the name of the file with
+** the map and all necessary info, and will check that the file is correct
+** and save all of it's data internally
+*/
 
 int			set_cub3d(char *map_file, t_cub3d *cub3d)
 {
