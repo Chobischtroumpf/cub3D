@@ -6,12 +6,15 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 07:26:52 by adorigo           #+#    #+#             */
-/*   Updated: 2020/07/29 14:46:04 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/07/31 12:33:02 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+/*
+** init_player(t_player *p) initialises the t_player structure
+*/
 static void	init_player(t_player *p)
 {
 	position_setter(p->pos, 0.0, 0.0);
@@ -21,6 +24,10 @@ static void	init_player(t_player *p)
 	p->hor_mov = 0;
 	p->hor_mov = 0;
 }
+
+/*
+** init_conf(t_config *conf, t_tex *tex) initialises the t_conf and t_tex structures
+*/
 
 static void	init_conf(t_config *conf, t_tex *tex)
 {
@@ -44,6 +51,10 @@ static void	init_conf(t_config *conf, t_tex *tex)
 
 }
 
+/*
+** init_cub(t_cub3d *cub) initialises the t_cub structure
+*/
+
 static void	init_cub(t_cub3d *cub)
 {
 	cub->grid = 0;
@@ -57,6 +68,11 @@ static void	init_cub(t_cub3d *cub)
 	cub->update = 0;
 	cub->exit = 0;
 }
+
+/*
+** the init_cub3d(t_cub3d *cub) function will malloc every sub-structure, and
+** then call functions to initialize all the values that need to be initialized
+*/
 
 int			init_cub3d(t_cub3d *cub)
 {
