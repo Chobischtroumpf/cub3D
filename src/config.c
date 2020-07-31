@@ -6,7 +6,7 @@
 /*   By: adorigo <adorigo@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 10:59:46 by adorigo           #+#    #+#             */
-/*   Updated: 2020/04/19 14:28:07 by adorigo          ###   ########.fr       */
+/*   Updated: 2020/07/31 15:43:08 by adorigo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,10 @@ static int	config_resolution(char *line, t_cub3d *cub3d)
 	return (1);
 }
 
+/*
+**
+*/
+
 static int	config_grid(char *line, t_cub3d *cub3d, t_config *conf)
 {
 	int		grid_w;
@@ -104,6 +108,13 @@ static int	config_grid(char *line, t_cub3d *cub3d, t_config *conf)
 	cub3d->grid = new_grid;
 	return (1);
 }
+
+/*
+** the get_config(char *line, t_cub3d *cub3d) function will go through the
+** line it got from GNL, and will save the data in the right variable depending
+** on what the first characters are, if the first characters of the line are
+** incorrect, the function will free the t_cub3d struct
+*/
 
 int			get_config(char *line, t_cub3d *cub3d)
 {
