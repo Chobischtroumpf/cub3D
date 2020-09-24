@@ -22,7 +22,7 @@
 # include <errno.h>
 # include <dirent.h>
 # include "libft.h"
-# include "mlx.h"
+# include <mlx.h>
 # include "key.h"
 
 # define TEX_N 0
